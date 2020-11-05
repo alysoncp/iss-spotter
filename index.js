@@ -1,6 +1,6 @@
 
 // index.js
-const { fetchMyIP, fetchCoordsByIP } = require('./iss');
+const { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes } = require('./iss');
 
 /*fetchMyIP((error, response, ip) => {
   if (error) {
@@ -17,13 +17,23 @@ const { fetchMyIP, fetchCoordsByIP } = require('./iss');
 });
 */
 
-
+/*
 fetchCoordsByIP('66.183.219.115', (error, data) => {
-  if (data.status === 'fail') {
-    console.log(data.message);
+  if (error) {
+    console.log(error);
   } else {
     console.log(data.lat);
     console.log(data.lon);
   }
 
+});
+*/
+
+
+fetchISSFlyOverTimes('49.2183', '-122.9093', (error, data) => {
+ if(error){
+   console.log("Houston we have a problem");
+ } else {
+   console.log(data)
+ }
 });

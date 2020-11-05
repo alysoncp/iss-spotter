@@ -16,12 +16,36 @@ const fetchMyIP = function(callback) {
 
 const fetchCoordsByIP = function(ip, callback) {
   request(`http://ip-api.com/json/${ip}`, (error, response, body) => {
-    const data = JSON.parse(body);
-    callback(response.statusCode, data);
-  
+
+    if (error) {
+      callback(error, null);
+      return
+    }  else if (response.statusCode !== 200) {
+      callback(`We had a problem ${response.statusCode}`, null)
+    } else {  
+      const data = JSON.parse(body);
+      callback(null, data);
+    } 
+
  
   });
 };
 
 
-module.exports = { fetchMyIP, fetchCoordsByIP };
+const fetchISSFlyOverTimes = function(lat, long, callback) {
+  request(`http://api.open-notify.org/iss-pass.json?lat=${lat}&lon=${long}`, (error, response, body) => {
+    if (error) {
+      callback(error, null);
+      return
+    }  else if (response.statusCode !== 200) {
+      callback(`We had a problem ${response.statusCode}`, null)
+    } else {  
+      const data = JSON.parse(body);
+      callback(null, data);
+    } 
+ 
+  });
+};
+
+
+module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
